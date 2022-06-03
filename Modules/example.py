@@ -23,6 +23,7 @@ class Fuzzy:
 
     def compute(self,sample):
         #rozmycie
+        print(sample)
         fuzzyValues=[]
         for i in self.antecedent:
             fuzzyValues.append([i[0],i[1],self.triangularFunction(sample[i[0]],i[2],i[3],i[4])])
@@ -33,6 +34,7 @@ class Fuzzy:
         for i in self.rules:
             tmp=1
             for j in fuzzyValues:
+                print(j)
                 if i[j[0]]==j[1]:
                     tmp*=j[2]
             rulesResult.append(tmp)
