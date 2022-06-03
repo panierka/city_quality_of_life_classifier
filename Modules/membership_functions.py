@@ -3,8 +3,10 @@ from abc import ABCMeta, abstractmethod
 
 class Function:
     __metaclass__ = ABCMeta
+
     @abstractmethod
-    def calculate(self, x) : raise NotImplementedError
+    def calculate(self, x):
+        raise NotImplementedError
 
 
 class TriangularFunction(Function):
