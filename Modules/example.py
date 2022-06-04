@@ -27,6 +27,7 @@ class Fuzzy:
         fuzzyValues=[]
         for i in self.antecedent:
             fuzzyValues.append([i[0],i[1],self.triangularFunction(sample[i[0]],i[2],i[3],i[4])])
+            print(fuzzyValues[-1])
 
         print(fuzzyValues)
         #wnioskowanie
@@ -37,6 +38,7 @@ class Fuzzy:
                 print(j)
                 if i[j[0]]==j[1]:
                     tmp*=j[2]
+            print(tmp)
             rulesResult.append(tmp)
         print('rulesResult:',rulesResult)
         #wyostrzenie
@@ -77,3 +79,4 @@ miasta.append({'naslonecznienie':1.0,'skazenie':0.1,'miasto':'Krakow'})
 for sample in miasta:
     print(sample)
     system.compute(sample)
+#%%
