@@ -1,18 +1,20 @@
 from Modules.membership_functions import Function
+from Modules.norms import Norm, AdditiveNorm
 from pandas import Series
 from typing import Dict, Callable, List
 import Modules.defuzzification_methods as defuzz
 
 
 class FuzzySystem:
-    def __init__(self):
+    def __init__(self, norm: Norm = AdditiveNorm()):
         self.__antecedents = {}  # słownik[nazwa : (słownik[lingwi : funkcja])]
         self.__consequents = {}  # słownik[nazwa : (słownik[lingwi : funkcja])]
         self.__rules = []
         self.__methods = {
-            'fom': defuzz.fom,
+            'fom': max,
             'lom': defuzz.lom
         }
+        self.__inference_norm_method = norm
 
     def add_antecedent(self, antecedent: str, linguistic_value: str, membership_function: Function):
         if antecedent not in self.__antecedents:
@@ -48,15 +50,9 @@ class FuzzySystem:
 
         return fuzzy_sample
 
-    def inference(self, fuzzified_sample: Dict[str, Dict]) -> List[float]: # tutaj coś nie jest optymalne
-        rules_results = []
-        for rule in self.__rules:
-            tmp = 1
-            for key, value in fuzzified_sample.items():
-                if value['linguistic'] == rule.get(key):
-                    tmp *= value['numerical']
-            rules_results.append(tmp)
-        return rules_results
+    def inference(self, fuzzified_sample: Dict[str, Dict]) -> List[float]:
+        results = self.__inference_norm_method.calculate(fuzzified_sample, self.__rules)
+        return results
 
     def defuzzify(self, rule_results: List[float], method_name: str) -> float:
         assert method_name in self.__methods.keys()
