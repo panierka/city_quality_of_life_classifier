@@ -10,7 +10,7 @@ class FuzzySystem:
         self.__consequents = {}  # słownik[nazwa : (słownik[lingwi : funkcja])]
         self.__rules = []
         self.__methods = {
-            'fom': max,
+            'fom': defuzz.fom,
             'lom': defuzz.lom
         }
 
@@ -77,10 +77,11 @@ class FuzzySystem:
     def compute(self, sample: Series, defuzzify_method_name: str) -> str:
         sample_data = dict(sample.to_dict())
         fuzzified_sample = self.fuzzify(sample_data)
-        print(f'{fuzzified_sample=}')
+        # print(f'{fuzzified_sample=}')
         rule_results = self.inference(fuzzified_sample)
-        print(f'{rule_results=}')
+        # print(f'{rule_results=}')
         crisp_result = self.defuzzify(rule_results, defuzzify_method_name)
+        print(f'{crisp_result=}')
         decision = self.classify(crisp_result)
 
         return decision

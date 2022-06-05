@@ -16,3 +16,7 @@ def lom(x: list):
             index = i
             tmp = x[i]
     return index
+
+
+def centroid(x: list):
+    pass
