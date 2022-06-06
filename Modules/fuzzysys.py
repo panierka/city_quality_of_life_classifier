@@ -27,6 +27,8 @@ class FuzzySystem:
         self.__consequents[consequent][linguistic_value] = membership_function
 
     def add_rule(self, rule: Dict):
+        last_key = rule.keys()[-1]
+        rule[last_key] = {rule[last_key]:self.__consequents[last_key][rule[last_key]]}
         self.__rules.append(rule)
 
     def test_display(self):
