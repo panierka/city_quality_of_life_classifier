@@ -1,22 +1,27 @@
-def fom(x: list):
-    tmp = x[0]
-    index = 0
-    for i in range(len(x)):
-        if tmp < x[i]:
-            index = i
-            tmp = x[i]
-    return index
+from collections import namedtuple
+from typing import Dict
+import numpy as np
+from numpy import array
 
 
-def lom(x: list):
-    tmp = x[0]
-    index = 0
-    for i in range(len(x)):
-        if tmp <= x[i]:
-            index = i
-            tmp = x[i]
-    return index
+def get_array(fx: array) -> array:
+    return np.linspace(1, len(fx) - 1, num=len(fx), dtype=int)
 
 
-def centroid(x: list):
-    pass
+def fom(fx: array):
+    x = get_array(fx)
+    return np.min(x[fx == fx.max()])
+
+
+def lom(fx: array):
+    x = get_array(fx)
+    return np.max(x[fx == fx.max()])
+
+
+def mom(fx: array):
+    x = get_array(fx)
+    return int(np.mean(x[fx == fx.max()]))
+
+
+def centroid(fx: array):
+    raise NotImplementedError

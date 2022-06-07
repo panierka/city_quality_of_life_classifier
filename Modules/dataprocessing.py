@@ -10,7 +10,8 @@ class ProcessingData:
         for column_name in column_names:
             min_value = df[column_name].min()
             max_value = df[column_name].max()
-            df[column_name] = (df[column_name] - min_value) / (max_value - min_value)
+            val = (df[column_name] - min_value) / (max_value - min_value)
+            df[column_name] = val
         pass
 
     @staticmethod
