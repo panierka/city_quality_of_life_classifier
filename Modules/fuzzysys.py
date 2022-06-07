@@ -4,6 +4,7 @@ from pandas import Series
 from typing import Dict, Callable, List
 import Modules.defuzzification_methods as defuzz
 import numpy as np
+from Modules.rule import RuleCondition
 
 
 class FuzzySystem:
@@ -28,15 +29,12 @@ class FuzzySystem:
             self.__consequents[consequent] = {}
         self.__consequents[consequent] = membership_function
 
-    def add_rule(self, antecedents_conjunction: Dict, consequent_value_identifier: str):
+    def add_rule(self, rule_conditions: RuleCondition, consequent_value_identifier: str):
         rule = {
-            'antecedents': antecedents_conjunction,
+            'antecedents': rule_conditions,
             'consequent.id': consequent_value_identifier
         }
         self.__rules.append(rule)
-
-    def test_display(self):
-        print('\n'.join(map(str, self.__antecedents.items())))
 
     def fuzzify(self, sample: Dict) -> dict:
         fuzzy_sample = {}
