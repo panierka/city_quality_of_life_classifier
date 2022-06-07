@@ -24,4 +24,8 @@ def mom(fx: array):
 
 
 def centroid(fx: array):
-    raise NotImplementedError
+    x = get_array(fx)
+    result = 0
+    for i in len(x):
+        result += x[i] * fx[i]
+    return result / len(x)
