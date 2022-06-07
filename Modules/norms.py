@@ -15,8 +15,13 @@ class AdditiveNorm(Norm):
         rules_results = []
         for rule in rules:
             tmp = 1
+            reset = True
             for key, value in fuzzified_sample.items():
+                print(key, value, rule.get(key))
                 if value['linguistic'] == rule.get(key):
                     tmp *= value['numerical']
+                    reset = False
+            if reset:
+                tmp = 0
             rules_results.append(tmp)
         return rules_results
