@@ -1,5 +1,5 @@
 from Modules.membership_functions import Function
-from Modules.norms import Norm, ProductNorm
+from Modules.norms import Norm, ExtendedMangerNorm
 from pandas import Series
 from typing import Dict, Callable, List
 import Modules.defuzzification_methods as defuzz
@@ -8,7 +8,7 @@ from Modules.rule import RuleCondition
 
 
 class FuzzySystem:
-    def __init__(self, norm: Norm = ProductNorm()):
+    def __init__(self, norm: Norm = ExtendedMangerNorm()):
         self.__antecedents = {}  # słownik[nazwa : (słownik[lingwi : funkcja])]
         self.__consequents = {}  # słownik[nazwa : funkcja])]
         self.__rules = []
@@ -30,6 +30,9 @@ class FuzzySystem:
         self.__consequents[consequent] = membership_function
 
     def add_rule(self, rule_conditions: RuleCondition, consequent_value_identifier: str):
+        rule_conditions.and_operator = self.__inference_norm_method.and_operator
+        rule_conditions.or_operator = self.__inference_norm_method.or_operator
+
         rule = {
             'antecedents': rule_conditions,
             'consequent.id': consequent_value_identifier
