@@ -5,7 +5,7 @@ from numpy import array
 
 
 def get_array(fx: array) -> array:
-    return np.linspace(1, len(fx) - 1, num=len(fx), dtype=int)
+    return np.linspace(1, 100, num=len(fx), dtype=int)
 
 
 def fom(fx: array):

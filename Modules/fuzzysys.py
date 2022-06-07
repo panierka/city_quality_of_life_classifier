@@ -1,5 +1,5 @@
 from Modules.membership_functions import Function
-from Modules.norms import Norm, AdditiveNorm
+from Modules.norms import Norm, ProductNorm
 from pandas import Series
 from typing import Dict, Callable, List
 import Modules.defuzzification_methods as defuzz
@@ -7,7 +7,7 @@ import numpy as np
 
 
 class FuzzySystem:
-    def __init__(self, norm: Norm = AdditiveNorm()):
+    def __init__(self, norm: Norm = ProductNorm()):
         self.__antecedents = {}  # słownik[nazwa : (słownik[lingwi : funkcja])]
         self.__consequents = {}  # słownik[nazwa : funkcja])]
         self.__rules = []
@@ -76,7 +76,7 @@ class FuzzySystem:
                 vals.append(val)
             return max(vals)
 
-        xs = [x * 0.01 for x in range(1, 101)]
+        xs = np.linspace(0, 1, num=1000)
         results = []
         for x in xs:
             results.append(evaluate(x))
