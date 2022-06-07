@@ -16,6 +16,9 @@ class TriangularFunction(Function):
         self.__c = c
 
     def calculate(self, x: float) -> float:
+        if x == self.__b:
+            return 1  # przypadek dla 0
+
         if x <= self.__a:
             return 0
 
