@@ -25,7 +25,8 @@ def mom(fx: array):
 
 def centroid(fx: array):
     x = get_array(fx)
-    result = 0
-    for i in len(x):
+    return sum(x * fx) / sum(fx)
+"""    result = 0
+    for i in range(len(x)):
         result += x[i] * fx[i]
-    return result / len(x)
+    return result / len(x)"""
