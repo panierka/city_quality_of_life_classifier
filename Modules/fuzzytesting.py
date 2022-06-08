@@ -45,6 +45,10 @@ class FuzzyTest:
             'precision': atomic_ratings['tp'] / (atomic_ratings['tp'] + atomic_ratings['fp'])
         }
 
+        print(f'FOR NORM = {type(self.__norm).__name__}, '
+              f'DEFUZZIFICATION METHOD = {self.__defuzzification_method}, '
+              f'THRESHOLD = {self.__score_threshold}')
+
         if show_confusion_matrix:
             matrix_data = np.array([[atomic_ratings['tp'], atomic_ratings['tn']],
                                     [atomic_ratings['fp'], atomic_ratings['fn']]])
@@ -52,4 +56,5 @@ class FuzzyTest:
             matrix_display.plot()
             plt.show()
 
-        print('\n'.join(map(lambda x: f'{x[0]}: {round(x[1] * 100, 1)}%', rating.items())))
+        print('\n'.join(map(lambda x: f' > {x[0]}: {round(x[1] * 100, 1)}%', rating.items())))
+        print('----------------------------------------------------------------------------------')
