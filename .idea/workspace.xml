@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2b354473-6d97-4187-a7dd-df9f5e53459d" name="Changes" comment="Ipnb + centroid">
+    <list default="true" id="2b354473-6d97-4187-a7dd-df9f5e53459d" name="Changes" comment="Smth2">
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/city_ratings_classifier.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/city_ratings_classifier.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +91,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654635722803</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Smth2">
+      <created>1654758990693</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1654758990693</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -111,6 +120,7 @@
     <MESSAGE value="Update ipynb" />
     <MESSAGE value="Membership functions" />
     <MESSAGE value="Ipnb + centroid" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ipnb + centroid" />
+    <MESSAGE value="Smth2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Smth2" />
   </component>
 </project>
