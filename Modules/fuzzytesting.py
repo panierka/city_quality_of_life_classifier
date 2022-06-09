@@ -8,14 +8,13 @@ from sklearn.metrics import ConfusionMatrixDisplay
 
 class FuzzyTest:
     def __init__(self, norm: Norm = ExtendedMangerNorm(), defuzzification_method='centroid',
-                 score_threshold=70, display=False):
+                 score_threshold=70):
         self.__norm = norm
         self.__defuzzification_method = defuzzification_method
         self.__score_threshold = score_threshold
-        self.__display = display
         pass
 
-    def run(self, fuzzy: fsys.FuzzySystem, df, n=None, show_confusion_matrix=True):
+    def run(self, fuzzy: fsys.FuzzySystem, df, n=None, show_confusion_matrix=False, display=False):
         if n is None:
             n = len(df)
         n = min(len(df), n)
@@ -29,7 +28,7 @@ class FuzzyTest:
 
         for i in range(n):
             sample = df.iloc[i]
-            result = fuzzy.compute(sample, self.__defuzzification_method, display=self.__display)
+            result = fuzzy.compute(sample, self.__defuzzification_method, display=display)
             assumed_better = result > self.__score_threshold
             factually_better = sample['Label'] == 'better'
 
@@ -37,6 +36,9 @@ class FuzzyTest:
             rating_id += 't' if assumed_better == factually_better else 'f'
             rating_id += 'p' if assumed_better else 'n'
             atomic_ratings[rating_id] += 1
+
+        print(atomic_ratings)
+        return
 
         rating = {
             'accuracy': (atomic_ratings['tp'] + atomic_ratings['tn']) / n,

@@ -1,5 +1,4 @@
-from matplotlib import pyplot as plt
-
+from Modules.fuzzydisplay import FuzzyVisualization
 from Modules.membership_functions import Function
 from Modules.norms import Norm, ExtendedMangerNorm
 from pandas import Series
@@ -30,10 +29,17 @@ class FuzzySystem:
             self.__antecedents[antecedent] = {}
         self.__antecedents[antecedent][linguistic_value] = membership_function
 
+    def display_antecedents(self):
+        for name, data in self.__antecedents.items():
+            FuzzyVisualization.display_fuzzy_variable(data, f'antecedent - {name}')
+
     def add_consequent(self, consequent: str, membership_function: Function):
         if consequent not in self.__consequents:
             self.__consequents[consequent] = {}
         self.__consequents[consequent] = membership_function
+
+    def display_consequents(self):
+        FuzzyVisualization.display_fuzzy_variable(self.__consequents, 'consequent - Rating')
 
     def add_rule(self, rule_conditions: RuleCondition, consequent_value_identifier: str):
         rule_conditions.and_operator = self.__inference_norm_method.and_operator
@@ -110,18 +116,16 @@ class FuzzySystem:
         sample_data = dict(sample.to_dict())
         fuzzified_sample = self.fuzzify(sample_data)
         rule_results = self.inference(fuzzified_sample)
-        crisp_result = int(self.defuzzify(rule_results, defuzzify_method_name))
+        deffuzification_result_raw = self.defuzzify(rule_results, defuzzify_method_name)
+
+        if np.isnan(deffuzification_result_raw):
+            deffuzification_result_raw = 0
+
+        crisp_result = int(deffuzification_result_raw)
 
         if display:
             print(f'{sample["UA_Name"]} -> {crisp_result}')
-            xs = np.linspace(1, 100, num=1000)
-            fig, ax = plt.subplots()
-            fig.set_size_inches(8, 5)
-            ax.set_ylim([0, 1])
-            ax.plot(xs, rule_results)
-            y_max = rule_results[10 * crisp_result - 1]
-            plt.axvline(x=crisp_result, ymax=y_max, c='red')
-            plt.show()
+            FuzzyVisualization.display_result(rule_results, crisp_result)
 
         return crisp_result
 

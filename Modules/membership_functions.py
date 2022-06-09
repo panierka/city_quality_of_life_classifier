@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 import math
 
+
 class Function:
     __metaclass__ = ABCMeta
 

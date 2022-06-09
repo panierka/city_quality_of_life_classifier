@@ -20,12 +20,12 @@ def lom(fx: array):
 
 def mom(fx: array):
     x = get_array(fx)
-    return int(np.mean(x[fx == fx.max()]))
+    return np.mean(x[fx == fx.max()])
 
 
 def centroid(fx: array):
     x = get_array(fx)
-    return sum(x * fx) / sum(fx)
+    return np.sum(x * fx) / np.sum(fx)
 """    result = 0
     for i in range(len(x)):
         result += x[i] * fx[i]
