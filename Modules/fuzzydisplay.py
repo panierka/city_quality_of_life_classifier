@@ -1,6 +1,4 @@
 from typing import Dict
-from skfuzzy import control as ctrl
-from skfuzzy.control.fuzzyvariable import FuzzyVariable
 import numpy as np
 from Modules.membership_functions import Function
 import matplotlib.pyplot as plt

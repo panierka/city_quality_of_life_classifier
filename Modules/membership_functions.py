@@ -57,12 +57,14 @@ class TrapezoidalFunction(Function):
             return 0
 
 class GaussianFunction(Function):
-    def __init__(self, stdev: float, mean: float):
-        self.__stdev = stdev
-        self.__mean = mean
+    def __init__(self, a: float, b: float):
+        self.__a = a
+        self.__b = b
+        self.__center = (a + b) / 2
+        self.__spread = (b - a)
 
     def calculate(self, x: float) -> float:
-        return 1 / ((2 * math.pi) ** (1 / 2) * stdev) * math.e ** (-((x - mean) ** 2) / (2 * (stdev ** 2)))
+        return math.e ** (-((x - self.__center) / self.__spread))
 
 class GammaFunction(Function):
     def __init__(self, a: float, b: float):

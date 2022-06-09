@@ -37,9 +37,6 @@ class FuzzyTest:
             rating_id += 'p' if assumed_better else 'n'
             atomic_ratings[rating_id] += 1
 
-        print(atomic_ratings)
-        return
-
         rating = {
             'accuracy': (atomic_ratings['tp'] + atomic_ratings['tn']) / n,
             'recall': atomic_ratings['tp'] / (atomic_ratings['tp'] + atomic_ratings['fn']),
