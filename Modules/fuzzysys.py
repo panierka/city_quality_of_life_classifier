@@ -1,3 +1,5 @@
+from matplotlib import pyplot as plt
+
 from Modules.membership_functions import Function
 from Modules.norms import Norm, ExtendedMangerNorm
 from pandas import Series
@@ -15,8 +17,12 @@ class FuzzySystem:
         self.__methods = {
             'fom': defuzz.fom,
             'lom': defuzz.lom,
-            'mom': defuzz.mom
+            'mom': defuzz.mom,
+            'centroid': defuzz.centroid
         }
+        self.__inference_norm_method = norm
+
+    def set_norm(self, norm: Norm):
         self.__inference_norm_method = norm
 
     def add_antecedent(self, antecedent: str, linguistic_value: str, membership_function: Function):
@@ -100,15 +106,23 @@ class FuzzySystem:
         pass
         # return decision
 
-    def compute(self, sample: Series, defuzzify_method_name: str) -> str:
+    def compute(self, sample: Series, defuzzify_method_name: str, display: bool = False) -> int:
         sample_data = dict(sample.to_dict())
         fuzzified_sample = self.fuzzify(sample_data)
-        # print(f'{fuzzified_sample=}')
         rule_results = self.inference(fuzzified_sample)
-        crisp_result = self.defuzzify(rule_results, defuzzify_method_name)
-        # print(f'{crisp_result=}')
-        # decision = self.classify(crisp_result)
+        crisp_result = int(self.defuzzify(rule_results, defuzzify_method_name))
 
-        return crisp_result, rule_results
+        if display:
+            print(f'{sample["UA_Name"]} -> {crisp_result}')
+            xs = np.linspace(1, 100, num=1000)
+            fig, ax = plt.subplots()
+            fig.set_size_inches(8, 5)
+            ax.set_ylim([0, 1])
+            ax.plot(xs, rule_results)
+            y_max = rule_results[10 * crisp_result - 1]
+            plt.axvline(x=crisp_result, ymax=y_max, c='red')
+            plt.show()
+
+        return crisp_result
 
 #%%
