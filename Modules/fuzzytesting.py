@@ -12,7 +12,6 @@ class FuzzyTest:
         self.__norm = norm
         self.__defuzzification_method = defuzzification_method
         self.__score_threshold = score_threshold
-        pass
 
     def run(self, fuzzy: fsys.FuzzySystem, df, n=None, show_confusion_matrix=False, display=False):
         if n is None:
