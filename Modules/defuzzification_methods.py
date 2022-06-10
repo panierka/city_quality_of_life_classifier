@@ -1,5 +1,3 @@
-from collections import namedtuple
-from typing import Dict
 import numpy as np
 from numpy import array
 
@@ -26,7 +24,3 @@ def mom(fx: array):
 def centroid(fx: array):
     x = get_array(fx)
     return np.sum(x * fx) / np.sum(fx)
-"""    result = 0
-    for i in range(len(x)):
-        result += x[i] * fx[i]
-    return result / len(x)"""

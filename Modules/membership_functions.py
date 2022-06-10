@@ -56,6 +56,7 @@ class TrapezoidalFunction(Function):
         if x > self.__c:
             return 0
 
+
 class GaussianFunction(Function):
     def __init__(self, a: float, b: float):
         self.__a = a
@@ -81,6 +82,7 @@ class GammaFunction(Function):
         if x > self.__b:
             return 1
 
+
 class BellFunction(Function):
     def __init__(self, a: float, b: float, c: float):
         self.__a = a
@@ -93,7 +95,6 @@ class BellFunction(Function):
 
         if self.__a < x <= self.__b:
             return 2*(((x - self.__a) / (self.__c - self.__a))**2)
-
 
         if self.__b < x <= self.__c:
             return 1-2*(((x - self.__a) / (self.__c - self.__a))**2)

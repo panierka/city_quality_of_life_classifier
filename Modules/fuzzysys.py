@@ -2,7 +2,7 @@ from Modules.fuzzydisplay import FuzzyVisualization
 from Modules.membership_functions import Function
 from Modules.norms import Norm, ExtendedMangerNorm
 from pandas import Series
-from typing import Dict, Callable, List
+from typing import Dict
 import Modules.defuzzification_methods as defuzz
 import numpy as np
 from Modules.rule import RuleCondition
@@ -99,18 +99,6 @@ class FuzzySystem:
         assert method_name in self.__methods.keys()
         method = self.__methods[method_name]
         return method(rule_results)
-
-    def classify(self, crisp_result: float):
-
-        """max_value = 0
-        decision = ''
-        for consequent, function in self.__consequents.items():
-            membership_function_value = function.calculate(crisp_result)
-            if membership_function_value > max_value:
-                max_value = membership_function_value
-                decision = consequent'"""
-        pass
-        # return decision
 
     def compute(self, sample: Series, defuzzify_method_name: str, display: bool = False) -> int:
         sample_data = dict(sample.to_dict())

@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from collections import namedtuple
 from typing import Dict, List
 
 
