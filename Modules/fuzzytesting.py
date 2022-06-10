@@ -56,3 +56,5 @@ class FuzzyTest:
 
         print('\n'.join(map(lambda x: f' > {x[0]}: {round(x[1] * 100, 1)}%', rating.items())))
         print('----------------------------------------------------------------------------------')
+
+        return rating
