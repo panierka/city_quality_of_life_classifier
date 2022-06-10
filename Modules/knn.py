@@ -51,16 +51,33 @@ class KNN:
             results.append((candidate, basic_counter))
             basic_counter = 0
         results.sort(key=lambda x: x[1])
-        if sample[label] == results[0][0]:
-            return True
-        else:
-            return False
+        if sample[label] == results[0][0] and sample[label] == 'better':
+            return 1
+        elif sample[label] == results[0][0] and sample[label] == 'worse':
+            return 2
+        elif sample[label] != results[0][0] and results[0][0] == 'better':
+            return 3
+        elif sample[label] != results[0][0] and results[0][0] == 'worse':
+            return 4
 
     @staticmethod
     def knn_for_every_row(training_dataset, test_dataset, m, k, label):
-        correct = 0
+        fp = 0
+        tn = 0
+        fn = 0
+        tp = 0
         for i in range(len(test_dataset)):
             result = KNN.knn_for_single_row(test_dataset.iloc[i], training_dataset, m, k, label)
-            if result:
-                correct += 1
-        return str((correct / len(test_dataset))*100)+"%"
+            if result == 1:
+                tp += 1
+            if result == 2:
+                tn += 1
+            if result == 3:
+                fp += 1
+            if result == 4:
+                fn += 1
+        accuracy = (tp + tn) / (tp + tn + fn + fp) * 100
+        precision = tp / (tp + fp) * 100
+        recall = tp / (tp + fn) * 100
+        specificity = tn / (tn + fp) * 100
+        return accuracy, precision, recall, specificity

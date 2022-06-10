@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2b354473-6d97-4187-a7dd-df9f5e53459d" name="Changes" comment="???">
+    <list default="true" id="2b354473-6d97-4187-a7dd-df9f5e53459d" name="Changes" comment="prefinal">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/bayes.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/bayes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/fuzzytesting.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/fuzzytesting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/knn.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/knn.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/softset.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/softset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/city_ratings_classifier.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/city_ratings_classifier.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +128,21 @@
       <option name="project" value="LOCAL" />
       <updated>1654819628145</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="???2">
+      <created>1654821731576</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1654821731577</updated>
+    </task>
+    <task id="LOCAL-00013" summary="prefinal">
+      <created>1654839687695</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1654839687695</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -153,6 +169,8 @@
     <MESSAGE value="Rules part 2" />
     <MESSAGE value="Finish" />
     <MESSAGE value="???" />
-    <option name="LAST_COMMIT_MESSAGE" value="???" />
+    <MESSAGE value="???2" />
+    <MESSAGE value="prefinal" />
+    <option name="LAST_COMMIT_MESSAGE" value="prefinal" />
   </component>
 </project>

@@ -57,8 +57,21 @@ class Bayes:
                 results[i][j][1] = label_names[j]
         for i in range(len(test_set)):
             results[i].sort(reverse=True)
-        correct = 0
+        fp = 0
+        tn = 0
+        fn = 0
+        tp = 0
         for i in range(len(test_set)):
-            if results[i][0][1] == test_set[label].iloc[i]:
-                correct += 1
-        return correct / len(test_set) * 100
+            if results[i][0][1] == test_set[label].iloc[i] and results[i][0][1] == 'better':
+                tp += 1
+            if results[i][0][1] == test_set[label].iloc[i] and results[i][0][1] == 'worse':
+                tn += 1
+            if results[i][0][1] != test_set[label].iloc[i] and results[i][0][1] == 'better':
+                fp += 1
+            if results[i][0][1] != test_set[label].iloc[i] and results[i][0][1] == 'worse':
+                fn += 1
+        accuracy = (tp + tn) / (tp + tn + fn + fp) * 100
+        precision = tp / (tp + fp) * 100
+        recall = tp / (tp + fn) * 100
+        specificity = tn / (tn + fp) * 100
+        return accuracy, precision, recall, specificity
