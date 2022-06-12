@@ -37,3 +37,11 @@ class ZadehNorm(Norm):
 
     def and_operator(self, a, b):
         return min(a, b)
+
+
+class LukasiewiczNorm(Norm):
+    def or_operator(self, a, b):
+        return min(1, a + b)
+
+    def and_operator(self, a, b):
+        return max(0, a + b - 1)
