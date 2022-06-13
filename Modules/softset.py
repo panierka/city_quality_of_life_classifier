@@ -10,6 +10,7 @@ class SoftSet:
             add += element
         return add / len(training_set)
 
+
     @staticmethod
     def softset(training_set, test_set, label):
         col = training_set.columns.tolist()
@@ -23,12 +24,12 @@ class SoftSet:
             result = training_set.iloc[i][label]
             if result not in label_names:
                 label_names.append(result)
-        results_for_rows = [1 for j in range(len(label_names))]
+        results_for_test_rows = [[1 for j in range(len(label_names))] for i in range(len(test_set))]
         counter = 0
         for name in label_names:
             profiled_list = []
-            for i in range(len(training_set)):
-                result = training_set.iloc[i].tolist()
+            for i in range(len(test_set)):
+                result = test_set.iloc[i].tolist()
                 result_label = training_set.iloc[i][label]
                 if result_label == name:
                     profiled_list.append(result)
@@ -36,19 +37,16 @@ class SoftSet:
             for quality in qualities:
                 column_mean = SoftSet.mean(profiled_dataset, quality)
                 for i in range(len(test_set)):
-                    probabilities_for_rows[i][counter] *= Bayes.normal_distribution(test_set[quality].iloc[i],
-                                                                                    column_mean, column_stdev)
+                    if test_set.iloc[i][quality] < column_mean:
+                        multiplier = 0
+                    else:
+                        multiplier = 1
+                    results_for_test_rows[i][counter] += multiplier * test_set.iloc[i][quality]
             counter += 1
-        results = [[[1, 1] for i in range(len(label_names))] for i in range(len(test_set))]
-        for i in range(len(test_set)):
-            for j in range(len(label_names)):
-                results[i][j][0] = probabilities_for_rows[i][j]
-                results[i][j][1] = label_names[j]
-        for i in range(len(test_set)):
-            results[i].sort(reverse=True)
         correct = 0
         for i in range(len(test_set)):
-            if results[i][0][1] == test_set[label].iloc[i]:
+            result = results_for_test_rows[i].index(max(results_for_test_rows[i]))
+            if label_names[result] == test_set.iloc[i][label]:
                 correct += 1
-        return correct / len(test_set) * 100
+        return correct/len(test_set)
 
