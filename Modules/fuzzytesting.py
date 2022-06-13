@@ -1,9 +1,17 @@
 import numpy as np
+import pandas as pd
 
 import Modules.fuzzysys as fsys
 from Modules.norms import *
 import matplotlib.pyplot as plt
 from sklearn.metrics import ConfusionMatrixDisplay
+import seaborn as sns
+
+sns.set(rc=
+        {
+            'figure.figsize': (11.7, 8.27),
+            "font.size": 18
+        })
 
 
 class FuzzyTest:
@@ -25,6 +33,8 @@ class FuzzyTest:
             'fn': 0
         }
 
+        all_results = []
+
         for i in range(n):
             sample = df.iloc[i]
             result = fuzzy.compute(sample, self.__defuzzification_method, display=display)
@@ -35,6 +45,7 @@ class FuzzyTest:
             rating_id += 't' if assumed_better == factually_better else 'f'
             rating_id += 'p' if assumed_better else 'n'
             atomic_ratings[rating_id] += 1
+            all_results.append([result, rating_id])
 
         rating = {
             'accuracy': (atomic_ratings['tp'] + atomic_ratings['tn']) / n,
@@ -56,5 +67,8 @@ class FuzzyTest:
 
         print('\n'.join(map(lambda x: f' > {x[0]}: {round(x[1] * 100, 1)}%', rating.items())))
         print('----------------------------------------------------------------------------------')
+
+        summary = pd.DataFrame(all_results, columns=['result', 'rating']).sort_values(by=['result'])
+        sns.scatterplot(data=summary, x=range(1, len(all_results) + 1), y='result', hue='rating')
 
         return rating
