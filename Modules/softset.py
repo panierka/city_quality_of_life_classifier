@@ -25,6 +25,7 @@ class SoftSet:
             result = training_set.iloc[i][label]
             if result not in label_names:
                 label_names.append(result)
+                label_names.sort()
         results_for_test_rows = [[0 for j in range(len(label_names))] for i in range(len(test_set))]
         for quality in qualities:
             column_mean = SoftSet.mean(training_set, quality)
