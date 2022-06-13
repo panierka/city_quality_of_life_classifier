@@ -20,33 +20,36 @@ class SoftSet:
             column = training_set.loc[:, i].tolist()
             if (not isinstance(column[0], str)) and (not isinstance(column[0], bool)):
                 qualities.append(i)
+        qualities.pop(len(qualities) - 1)
         for i in range(len(training_set)):
             result = training_set.iloc[i][label]
             if result not in label_names:
                 label_names.append(result)
-        results_for_test_rows = [[1 for j in range(len(label_names))] for i in range(len(test_set))]
-        counter = 0
-        for name in label_names:
-            profiled_list = []
+        results_for_test_rows = [[0 for j in range(len(label_names))] for i in range(len(test_set))]
+        for quality in qualities:
+            column_mean = SoftSet.mean(training_set, quality)
             for i in range(len(test_set)):
-                result = test_set.iloc[i].tolist()
-                result_label = training_set.iloc[i][label]
-                if result_label == name:
-                    profiled_list.append(result)
-            profiled_dataset = pd.DataFrame(profiled_list, columns=col)
-            for quality in qualities:
-                column_mean = SoftSet.mean(profiled_dataset, quality)
-                for i in range(len(test_set)):
-                    if test_set.iloc[i][quality] < column_mean:
-                        multiplier = 0
-                    else:
-                        multiplier = 1
-                    results_for_test_rows[i][counter] += multiplier * test_set.iloc[i][quality]
-            counter += 1
-        correct = 0
+                if test_set.iloc[i][quality] < column_mean:
+                    results_for_test_rows[i][1] += 1
+                else:
+                    results_for_test_rows[i][0] += 1
+        fp = 0
+        tn = 0
+        fn = 0
+        tp = 0
         for i in range(len(test_set)):
             result = results_for_test_rows[i].index(max(results_for_test_rows[i]))
-            if label_names[result] == test_set.iloc[i][label]:
-                correct += 1
-        return correct/len(test_set)
+            if label_names[result] == test_set.iloc[i][label] and label_names[result] == 'better':
+                tp += 1
+            elif label_names[result] == test_set.iloc[i][label] and label_names[result] == 'worse':
+                tn += 1
+            elif label_names[result] != test_set.iloc[i][label] and test_set.iloc[i][label] == 'better':
+                fp += 1
+            elif label_names[result] != test_set.iloc[i][label] and test_set.iloc[i][label] == 'worse':
+                fn += 1
+        accuracy = (tp + tn) / (tp + tn + fn + fp) * 100
+        precision = tp / (tp + fp) * 100
+        recall = tp / (tp + fn) * 100
+        specificity = tn / (tn + fp) * 100
+        return accuracy, precision, recall, specificity
 
