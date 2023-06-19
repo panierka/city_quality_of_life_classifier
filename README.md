@@ -46,5 +46,5 @@ Data were obtained from Kaggle.
 - centroid middle of area.
 
 ## Team:
-- [panierka](https://github.com/panierka) - fuzzification, inference and defuzzification layers
+- [panierka](https://github.com/panierka) - system architecture; fuzzifications, inference and defuzzification layers
 - [jdylik](https://github.com/jdylik) - KNN, Naive Bayes, Softset implementations, system of rules design
